@@ -1,0 +1,2 @@
+ Player 1 Move 0,0 -> 1,1 and eat
+ Player 1 Move 0,0 -> 1,1
