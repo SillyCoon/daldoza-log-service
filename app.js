@@ -1,9 +1,16 @@
 const express = require('express');
 const bodyParser = require("body-parser");
 const fs = require('fs');
+var cors = require('cors')
 
 const urlencodedParser = bodyParser.json();
 const app = express();
+
+app.use(cors())
+
+app.get("/health", (req, res) => {
+    res.status(200).send('health check: OK');
+});
 
 app.post("/log/move", urlencodedParser, (req, res) => {
     logHandler(req, res, prettyLogMove);
@@ -23,6 +30,7 @@ app.post("/log/activate", urlencodedParser, (req, res) => {
     }
 });
 
+
 app.post("/log/roll", urlencodedParser, (req, res) => {
     logHandler(req, res, prettyLogRoll);
 
@@ -41,5 +49,7 @@ function logHandler(req, res, prettyLog) {
 }
 
 
-app.listen(3000);
+app.listen(3000, () => {
+    console.log('listen port: ' + 3000);
+});
 
