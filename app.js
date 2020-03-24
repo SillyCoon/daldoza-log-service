@@ -26,7 +26,7 @@ app.post("/log/activate", urlencodedParser, (req, res) => {
     logHandler(req, res, prettyLogActivate)
 
     function prettyLogActivate(logItem) {
-        return ` Player ${logItem.player} ${logItem.type} ${logItem.actionCoordinate}\n`;
+        return ` Player ${logItem.player} ${logItem.type} ${logItem.params.actionCoordinate}\n`;
     }
 });
 
@@ -35,15 +35,15 @@ app.post("/log/roll", urlencodedParser, (req, res) => {
     logHandler(req, res, prettyLogRoll);
 
     function prettyLogRoll(logItem) {
-        return ` Player ${logItem.player} ${logItem.type} and get dices ${logItem.dices.join()}\n`;
+        return ` Player ${logItem.player} ${logItem.type} and get dices ${logItem.params.dices.join()}\n`;
     }
 });
 
 function logHandler(req, res, prettyLog) {
     const logItem = req.body;
     const logString = prettyLog(logItem);
-
-    fs.writeFile('./log/all-logs.txt', logString, { flag: 'a' }, () => {
+    console.log(logItem);
+    fs.writeFile('./logs/all-logs.txt', logString, { flag: 'a' }, () => {
         res.send(logItem.type);
     });
 }
