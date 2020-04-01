@@ -16,7 +16,7 @@ app.post("/log/move", urlencodedParser, (req, res) => {
     logHandler(req, res, prettyLogMove);
 
     function prettyLogMove(logItem) {
-        const move = ` Player ${logItem.player} ${logItem.type} ${logItem.params.from} -> ${logItem.params.to}`;
+        const move = ` Player ${logItem.player} move ${logItem.params.from.x}:${logItem.params.from.y} -> ${logItem.params.to}`;
         const eat = logItem.params.eat ? " and eat\n" : "\n";
         return move + eat;
     }
@@ -26,7 +26,7 @@ app.post("/log/activate", urlencodedParser, (req, res) => {
     logHandler(req, res, prettyLogActivate)
 
     function prettyLogActivate(logItem) {
-        return ` Player ${logItem.player} ${logItem.type} ${logItem.params.actionCoordinate}\n`;
+        return `Player ${logItem.player} activate ${logItem.params.actionCoordinate}\n`;
     }
 });
 
@@ -35,7 +35,7 @@ app.post("/log/roll", urlencodedParser, (req, res) => {
     logHandler(req, res, prettyLogRoll);
 
     function prettyLogRoll(logItem) {
-        return ` Player ${logItem.player} ${logItem.type} and get dices ${logItem.params.dices.join()}\n`;
+        return ` Player ${logItem.player} roll and get dices ${logItem.params.dices.join()}\n`;
     }
 });
 
